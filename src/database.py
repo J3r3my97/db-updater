@@ -36,9 +36,9 @@ def init_connection_engine(connector: Connector) -> Engine:
 
     Uses the Cloud SQL Python Connector with Automatic IAM Database Authentication.
     """
-    instance_connection_name = os.environ["DB_HOST"]
-    db_user = os.environ["DB_USER"]
-    db_name = os.environ["DB_NAME"]
+    instance_connection_name = DB_HOST
+    db_user = DB_USER
+    db_name = DB_NAME
 
     ip_type = IPTypes.PRIVATE if os.environ.get("PRIVATE_IP") else IPTypes.PUBLIC
 
