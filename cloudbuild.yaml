@@ -21,7 +21,7 @@ steps:
       - '--region'
       - 'us-central1'
       - '--env-vars-file'
-      - 'db-updater-dev$_ENV.yaml'
+      - 'db-updater-dev$.yaml'
       - '--platform'
       - managed
     id: Deploy Container on Google Cloud Run
