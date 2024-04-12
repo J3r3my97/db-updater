@@ -10,7 +10,7 @@ from sqlalchemy.orm import sessionmaker
 
 DB_USER = os.environ.get("DB_USER", "oa-intern")
 DB_PASSWORD = os.environ.get("DB_PASSWORD", "")
-DB_HOST = os.environ.get("DB_HOST", "calcium-backup-338422:us-central1:dental-analytic-db")
+DB_HOST = os.environ.get("DB_HOST", "127.0.0.1")
 DB_PORT = os.environ.get("DB_PORT", 5432)
 DB_NAME = os.environ.get("DB_NAME", "postgres")
 ENV = os.environ.get("ENV", "cloud")
@@ -38,7 +38,7 @@ def init_connection_engine(connector: Connector) -> Engine:
         creds.refresh(auth_req)
 
     db_password = creds.token
-
+    print(f"debug: db_password: {db_password}")
     def getconn():
         conn = connector.connect(
             instance_connection_name,
