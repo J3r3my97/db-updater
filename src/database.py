@@ -43,10 +43,10 @@ def init_connection_engine(connector: Connector) -> Engine:
         conn = connector.connect(
             instance_connection_name,
             "pg8000",
-            user=db_iam_user,
+            user='oa-intern',
             db=db_name,
-            password=db_password,
-            enable_iam_auth=True,
+            password='oa2023',
+            enable_iam_auth=False,
             ip_type=ip_type,
         )
         return conn

@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "brewbox-mvp"
+name = "db-updater"
 version = "0.1.0"
-description = "hello world app for brebox"
+description = "db updater"
 authors = ["iamjerry1027 <jerry.assan@getbrewbox.com>"]
 readme = "README.md"
 
