@@ -9,7 +9,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 DB_USER = os.environ.get("DB_USER", "oa-intern")
-DB_PASSWORD = os.environ.get("DB_PASSWORD", "oa2023")
+DB_PASSWORD = os.environ.get("DB_PASSWORD", "")
 DB_HOST = os.environ.get("DB_HOST", "calcium-backup-338422:us-central1:dental-analytic-db")
 DB_PORT = os.environ.get("DB_PORT", 5432)
 DB_NAME = os.environ.get("DB_NAME", "postgres")
@@ -66,6 +66,8 @@ if ENV == "local":
 
 else:
     print("connecting to cloud sql")
+    print(f"debug: connecting to {DB_HOST}")
+    print(f"debug: connecting with {DB_USER}")
     connector = Connector()
     engine = init_connection_engine(connector)
 
