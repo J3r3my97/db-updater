@@ -2,27 +2,14 @@
 helloworld for db-updater app
 
 
-# Env vars for app
-export PROJECT_ID=calcium-backup-338422
-
-export APP=db-updater
-
-export PORT=1234
-
-export REGION="us-central1"
-
-export TAG="gcr.io/$PROJECT_ID/$APP"
-
-# Set Default Project (all later commands will use it) 
-gcloud config set project $PROJECT_ID
-
-# Create and push docker image
-docker build -t $TAG .
-gcloud builds submit --tag $TAG
 
 # Spin up locally
-open docker app in the background and run in terminal
 
-"docker run -dp $PORT:$PORT -e PORT=$PORT $TAG"
-
+cd src
 uvicorn main:app --reload
+
+# In a seperate terminal
+ ./cloud-sql-proxy calcium-backup-338422:us-central1:dental-analytic-db
+
+ # In Web browser
+http://127.0.0.1:8000/docs#

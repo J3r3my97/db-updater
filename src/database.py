@@ -13,10 +13,10 @@ ENV = os.environ.get("ENV", "cloud")
 
 if ENV == "local":
     DB_USER = os.environ.get("DB_USER", "oa-intern")
-    DB_PASSWORD = os.environ.get("DB_PASSWORD")
-    DB_HOST = os.environ.get("DB_HOST")
-    DB_PORT = os.environ.get("DB_PORT")
-    DB_NAME = os.environ.get("DB_NAME")
+    DB_PASSWORD = os.environ.get("DB_PASSWORD","oa2023")
+    DB_HOST = os.environ.get("DB_HOST","calcium-backup-338422:us-central1:dental-analytic-db")
+    DB_PORT = os.environ.get("DB_PORT", "5432")
+    DB_NAME = os.environ.get("DB_NAME", "postgres")
 else:
     db_creds = secret.get_secret("calcium-backup-338422", "db-credentials")
 
