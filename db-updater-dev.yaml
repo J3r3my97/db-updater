@@ -1,4 +1,4 @@
 DB_HOST: calcium-backup-338422:us-central1:dental-analytic-db
 DB_NAME: postgres
-DB_USER: iamjerry@calcium-backup-338422.iam.gserviceaccount.com
+DB_USER: db-updater@calcium-backup-338422.iam.gserviceaccount.com
 ENV: dev

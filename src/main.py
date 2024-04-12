@@ -46,5 +46,11 @@ async def get_patients(db: Session = Depends(get_db)):
     return patients
 
 
+# TODO: add a router for inserting a single patient
+# @app.post("/patients", tags=["patients"])
+# async def create_patient(patient: models.PatientCreate, db: Session = Depends(get_db)):
+#     return crud.create_patient(db, patient)
+
+
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=8000)
