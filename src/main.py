@@ -17,13 +17,11 @@ handler.setFormatter(formatter)
 logger.addHandler(handler)
 
 
-
 app = FastAPI(
     title="Dental-Analytic-API",
 )
 
 models.database.Base.metadata.create_all(bind=database.engine)
-
 
 
 # Dependency

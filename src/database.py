@@ -2,18 +2,30 @@ import os
 from typing import Generator
 
 import google.auth
+import secret
 from google.cloud.sql.connector import Connector, IPTypes
 from sqlalchemy import create_engine
 from sqlalchemy.engine import Engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-DB_USER = os.environ.get("DB_USER", "oa-intern")
-DB_PASSWORD = os.environ.get("DB_PASSWORD", "")
-DB_HOST = os.environ.get("DB_HOST", "127.0.0.1")
-DB_PORT = os.environ.get("DB_PORT", 5432)
-DB_NAME = os.environ.get("DB_NAME", "postgres")
 ENV = os.environ.get("ENV", "cloud")
+
+if ENV == "local":
+    DB_USER = os.environ.get("DB_USER", "oa-intern")
+    DB_PASSWORD = os.environ.get("DB_PASSWORD")
+    DB_HOST = os.environ.get("DB_HOST")
+    DB_PORT = os.environ.get("DB_PORT")
+    DB_NAME = os.environ.get("DB_NAME")
+else:
+    db_creds = secret.get_secret("calcium-backup-338422", "db-credentials")
+
+    DB_USER = db_creds.get("DB_USER", "oa-intern")
+    DB_PASSWORD = db_creds.get("DB_PASSWORD")
+    DB_HOST = db_creds.get("DB_HOST")
+    DB_PORT = db_creds.get("DB_PORT")
+    DB_NAME = db_creds.get("DB_NAME")
+
 
 Base = declarative_base()
 
@@ -25,7 +37,7 @@ def init_connection_engine(connector: Connector) -> Engine:
     Uses the Cloud SQL Python Connector with Automatic IAM Database Authentication.
     """
     instance_connection_name = os.environ["DB_HOST"]
-    db_iam_user = os.environ["DB_USER"]
+    db_user = os.environ["DB_USER"]
     db_name = os.environ["DB_NAME"]
 
     ip_type = IPTypes.PRIVATE if os.environ.get("PRIVATE_IP") else IPTypes.PUBLIC
@@ -38,14 +50,14 @@ def init_connection_engine(connector: Connector) -> Engine:
         creds.refresh(auth_req)
 
     db_password = creds.token
-    print(f"debug: db_password: {db_password}")
+
     def getconn():
         conn = connector.connect(
             instance_connection_name,
             "pg8000",
-            user='oa-intern',
+            user=db_user,
             db=db_name,
-            password='oa2023',
+            password=DB_PASSWORD,
             enable_iam_auth=False,
             ip_type=ip_type,
         )
@@ -66,8 +78,6 @@ if ENV == "local":
 
 else:
     print("connecting to cloud sql")
-    print(f"debug: connecting to {DB_HOST}")
-    print(f"debug: connecting with {DB_USER}")
     connector = Connector()
     engine = init_connection_engine(connector)
 
