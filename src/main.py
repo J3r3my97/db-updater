@@ -22,17 +22,17 @@ app = FastAPI(
     title="Dental-Analytic-API",
 )
 
-models.database.Base.metadata.create_all(bind=database.engine)
+# models.database.Base.metadata.create_all(bind=database.engine)
 
 
 
 # Dependency
-def get_db():
-    db = database.SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+# def get_db():
+#     db = database.SessionLocal()
+#     try:
+#         yield db
+#     finally:
+#         db.close()
 
 
 @app.get("/health", tags=["health_check"])
@@ -40,10 +40,10 @@ async def root():
     return {"message": "app is running"}
 
 
-@app.get("/patients", tags=["patients"])
-async def get_patients(db: Session = Depends(get_db)):
-    patients = crud.get_all_patients(db)
-    return patients
+# @app.get("/patients", tags=["patients"])
+# async def get_patients(db: Session = Depends(get_db)):
+#     patients = crud.get_all_patients(db)
+#     return patients
 
 
 # TODO: add a router for inserting a single patient
