@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "brewbox-mvp"
+version = "0.1.0"
+description = "hello world app for brebox"
+authors = ["iamjerry1027 <jerry.assan@getbrewbox.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.108.0"
+uvicorn = "^0.25.0"
+sqlalchemy = "^2.0.25"
+pg8000 = "^1.30.4"
+protobuf = "^4.25.2"
+cloud-sql-python-connector = {extras = ["pg8000"], version = "^1.5.0"}
+psycopg2-binary = "^2.9.9"
+google-auth = "^2.26.2"
+requests = "2.29"
+firebase-admin = "^6.4.0"
+pyrebase4 = "^4.7.1"
+google-cloud-secret-manager = "^2.18.0"
+python-multipart = "^0.0.9"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
