@@ -2,19 +2,22 @@ import os
 from typing import Generator
 
 import google.auth
-import secret
 from google.cloud.sql.connector import Connector, IPTypes
 from sqlalchemy import create_engine
 from sqlalchemy.engine import Engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
+import secret
+
 ENV = os.environ.get("ENV", "cloud")
 
 if ENV == "local":
     DB_USER = os.environ.get("DB_USER", "oa-intern")
-    DB_PASSWORD = os.environ.get("DB_PASSWORD","oa2023")
-    DB_HOST = os.environ.get("DB_HOST","calcium-backup-338422:us-central1:dental-analytic-db")
+    DB_PASSWORD = os.environ.get("DB_PASSWORD", "oa2023")
+    DB_HOST = os.environ.get(
+        "DB_HOST", "calcium-backup-338422:us-central1:dental-analytic-db"
+    )
     DB_PORT = os.environ.get("DB_PORT", "5432")
     DB_NAME = os.environ.get("DB_NAME", "postgres")
 else:

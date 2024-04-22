@@ -1,12 +1,13 @@
 import logging
 
-
 import uvicorn
 from fastapi import Depends, FastAPI
+from sqlalchemy.orm import Session
+
+import crud
 import database
 import models
-import crud
-from sqlalchemy.orm import Session
+import schemas
 
 # Custom logger configuration
 logger = logging.getLogger(__name__)
@@ -44,12 +45,9 @@ async def get_patients(db: Session = Depends(get_db)):
     return patients
 
 
-# TODO: add a router for inserting a single patient
-# @app.post("/patients", tags=["patients"])
-# async def create_patient(patient: models.PatientCreate, db: Session = Depends(get_db)):
-#     return crud.create_patient(db, patient)
-
-# add changes
+@app.post("/patients", tags=["patients"])
+async def create_patient(patient: schemas.PatientCreate, db: Session = Depends(get_db)):
+    return crud.create_patient(db, patient)
 
 
 if __name__ == "__main__":
